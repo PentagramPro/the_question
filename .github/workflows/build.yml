@@ -29,8 +29,8 @@ jobs:
           path: ${{ env.RENPY_DIR }}
           # Change the key if you update RENPY_VERSION or want to refresh the cache
           key: renpy-sdk-${{ env.RENPY_VERSION }}
-          
-       - name: Download and extract Ren'Py SDK (if not cached)
+
+      - name: Download and extract Ren'Py SDK (if not cached)
         if: steps.cache-renpy.outputs.cache-hit != 'true'
         run: |
           echo "Cache miss - downloading Ren'Py SDK..."
