@@ -45,7 +45,7 @@ jobs:
           # Make renpy.sh executable, just in case
           chmod +x renpy.sh
           # The project is the repository root, which is one level up from renpy-sdk
-          ./renpy.sh .. distribute
+          ./renpy.sh launcher distribute ..
 
       - name: Upload built distributions
         uses: actions/upload-artifact@v4
