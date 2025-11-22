@@ -1,1 +1,1 @@
-print("::warning Test warning")
+print("::warning file=validate.py,line=1::Test warning")

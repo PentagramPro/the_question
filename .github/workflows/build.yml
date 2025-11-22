@@ -62,4 +62,4 @@ jobs:
         with:
           name: the_question-build
           # The dist folder is created in the project directory (repo root)
-          path: dist/**
+          path: renpy-sdk/dist/**
