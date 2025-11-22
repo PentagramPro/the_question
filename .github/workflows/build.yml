@@ -43,12 +43,12 @@ jobs:
         
       - name: Build distribution
         # Run Ren'Py from inside the SDK directory
-        working-directory: renpy-sdk
+        working-directory: .
         run: |
           # Make renpy.sh executable, just in case
-          chmod +x renpy.sh
+          chmod +x ${RENPY_DIR}/renpy.sh
           # The project is the repository root, which is one level up from renpy-sdk
-          ./renpy.sh launcher distribute .. --destination dist --package win
+          ${RENPY_DIR}/renpy.sh launcher distribute . --destination dist --package win
 
       - name: List workspace files
         run: |
@@ -62,4 +62,4 @@ jobs:
         with:
           name: the_question-build
           # The dist folder is created in the project directory (repo root)
-          path: renpy-sdk/dist/**
+          path: dist/**
