@@ -1,0 +1,55 @@
+name: Build Ren'Py Game
+
+on:
+  push:
+    branches:
+      # Run this workflow on every push to the master branch
+      - master
+
+jobs:
+  build:
+    # Use a Linux runner (cheaper and usually faster)
+    runs-on: ubuntu-latest
+
+    env:
+      RENPY_VERSION: "8.5.0"
+      # Directory name for the SDK once unpacked
+      RENPY_DIR: "renpy-sdk"
+
+    steps:
+      - name: Checkout repository
+        # Checkout the game project
+        uses: actions/checkout@v4
+
+      - name: Cache Ren'Py SDK
+        # Cache the unpacked Ren'Py SDK directory to speed up subsequent runs
+        uses: actions/cache@v4
+        id: cache-renpy
+        with:
+          path: ${{ env.RENPY_DIR }}
+          # Change the key if you update RENPY_VERSION or want to refresh the cache
+          key: renpy-sdk-${{ env.RENPY_VERSION }}
+          
+       - name: Download and extract Ren'Py SDK (if not cached)
+        if: steps.cache-renpy.outputs.cache-hit != 'true'
+        run: |
+          echo "Cache miss - downloading Ren'Py SDK..."
+          curl -L "https://www.renpy.org/dl/${RENPY_VERSION}/renpy-${RENPY_VERSION}-sdk.tar.bz2" -o renpy-sdk.tar.bz2
+          tar -xjf renpy-sdk.tar.bz2
+          mv "renpy-${RENPY_VERSION}-sdk" "${RENPY_DIR}"
+
+      - name: Build distribution
+        # Run Ren'Py from inside the SDK directory
+        working-directory: renpy-sdk
+        run: |
+          # Make renpy.sh executable, just in case
+          chmod +x renpy.sh
+          # The project is the repository root, which is one level up from renpy-sdk
+          ./renpy.sh .. distribute
+
+      - name: Upload built distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: the_question-build
+          # The dist folder is created in the project directory (repo root)
+          path: dist/**
