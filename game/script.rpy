@@ -31,7 +31,7 @@ label start:
     show sylvie green normal
     with dissolve
 
-    "I've known Sylvie since we were kids. She's got a big heart and she's always been a good friend to me."
+    "I've knownn Sylvie since we were kids. She's got a big heart and she's always been a good friend to me."
 
     "But recently... I've felt that I want something more."
 
