@@ -48,7 +48,7 @@ jobs:
           # Make renpy.sh executable, just in case
           chmod +x renpy.sh
           # The project is the repository root, which is one level up from renpy-sdk
-          ./renpy.sh launcher distribute .. --package win
+          ./renpy.sh launcher distribute .. -- destination dist --package win
 
       - name: List workspace files
         run: |
