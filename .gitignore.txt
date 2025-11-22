@@ -1,0 +1,17 @@
+# Ren'Py cache and compiled stuff
+cache/
+tmp/
+log.txt
+errors.txt
+
+# Save games
+saves/
+game/saves/
+persistent
+*.persist
+
+# Build artefacts
+dist/
+build/
+*.rpyc
+*.rpa
