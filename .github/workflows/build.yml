@@ -37,7 +37,12 @@ jobs:
           curl -L "https://www.renpy.org/dl/${RENPY_VERSION}/renpy-${RENPY_VERSION}-sdk.tar.bz2" -o renpy-sdk.tar.bz2
           tar -xjf renpy-sdk.tar.bz2
           mv "renpy-${RENPY_VERSION}-sdk" "${RENPY_DIR}"
-          
+
+      - name: Install pyenchant
+        run: |
+          sudo apt-get update && sudo apt-get install -y enchant-2
+          pip install pyenchant
+
       - name: Validate project structure
         run: python3 validate.py
         

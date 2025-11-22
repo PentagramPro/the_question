@@ -1,20 +1,5 @@
 import re
-import sys
-import subprocess
 from pathlib import Path
-
-
-def ensure_package(pkg: str, imp: str):
-    try:
-        __import__(imp)
-    except ImportError:
-        print(f"Package '{pkg}' not found. Installing...", file=sys.stderr)
-        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
-        print(f"Package '{pkg}' installed successfully.", file=sys.stderr)
-
-
-ensure_package("pyenchant", "enchant")
-
 import enchant
 
 LANG = "en_US"
