@@ -218,8 +218,3 @@ define build.itch_project = "renpytom/the-question"
 
 # Enable the console.
 define config.console = True
-
-define build.targets = [
-    "mac",
-    "win",
-]

@@ -37,7 +37,10 @@ jobs:
           curl -L "https://www.renpy.org/dl/${RENPY_VERSION}/renpy-${RENPY_VERSION}-sdk.tar.bz2" -o renpy-sdk.tar.bz2
           tar -xjf renpy-sdk.tar.bz2
           mv "renpy-${RENPY_VERSION}-sdk" "${RENPY_DIR}"
-
+          
+      - name: Validate project structure
+        run: python3 validate.py
+        
       - name: Build distribution
         # Run Ren'Py from inside the SDK directory
         working-directory: renpy-sdk

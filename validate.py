@@ -1,0 +1,1 @@
+print("::warning Test warning")
