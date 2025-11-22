@@ -43,7 +43,7 @@ jobs:
         
       - name: Build distribution
         # Run Ren'Py from inside the SDK directory
-        working-directory: ${{ env.RENPY_DIR }}
+        working-directory: renpy-sdk
         run: |
           # Make renpy.sh executable, just in case
           chmod +x renpy.sh
