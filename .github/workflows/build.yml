@@ -13,30 +13,12 @@ jobs:
 
     env:
       RENPY_VERSION: "8.5.0"
-      # Directory name for the SDK once unpacked
-      RENPY_DIR: "renpy-sdk"
 
     steps:
       - name: Checkout repository
         # Checkout the game project
         uses: actions/checkout@v4
 
-      - name: Cache Ren'Py SDK
-        # Cache the unpacked Ren'Py SDK directory to speed up subsequent runs
-        uses: actions/cache@v4
-        id: cache-renpy
-        with:
-          path: ${{ env.RENPY_DIR }}
-          # Change the key if you update RENPY_VERSION or want to refresh the cache
-          key: renpy-sdk-${{ env.RENPY_VERSION }}
-
-      - name: Download and extract Ren'Py SDK (if not cached)
-        if: steps.cache-renpy.outputs.cache-hit != 'true'
-        run: |
-          echo "Cache miss - downloading Ren'Py SDK..."
-          curl -L "https://www.renpy.org/dl/${RENPY_VERSION}/renpy-${RENPY_VERSION}-sdk.tar.bz2" -o renpy-sdk.tar.bz2
-          tar -xjf renpy-sdk.tar.bz2
-          mv "renpy-${RENPY_VERSION}-sdk" "${RENPY_DIR}"
 
       - name: Install pyenchant
         run: |
@@ -46,14 +28,15 @@ jobs:
       - name: Validate project structure
         run: python3 validate.py
         
-      - name: Build distribution
-        # Run Ren'Py from inside the SDK directory
-        working-directory: renpy-sdk
-        run: |
-          # Make renpy.sh executable, just in case
-          chmod +x renpy.sh
-          # The project is the repository root, which is one level up from renpy-sdk
-          ./renpy.sh launcher distribute .. --destination dist --package win
+      - name: Build Renpy Project
+        uses: ProjectAliceDev/renpy-build-action@master
+        with:
+          sdk-version: '8.5.0'
+          project-dir: '.'
+          package: 'win'
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_VIDEODRIVER: dummy
 
 
       - name: Upload built distributions
