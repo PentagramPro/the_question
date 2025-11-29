@@ -29,6 +29,7 @@ jobs:
         run: python3 validate.py
         
       - name: Build Renpy Project
+        id: renpy_build
         uses: ProjectAliceDev/renpy-build-action@master
         with:
           sdk-version: '8.5.0'
@@ -43,5 +44,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: the_question-build
-          # The dist folder is created in the project directory (repo root)
-          path: renpy-sdk/dist/**
+          path: ${{ steps.renpy_build.outputs.dir }}
