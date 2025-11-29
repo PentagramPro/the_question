@@ -192,7 +192,6 @@ init python:
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
 
-    build.classify("renpy-sdk/**", None)
     build.classify(".git/**", None)
     build.classify(".github/**", None)
 
